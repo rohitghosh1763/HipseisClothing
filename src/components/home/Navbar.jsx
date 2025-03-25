@@ -1,152 +1,112 @@
 import React, { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const toggleMobileMenu = () => setIsOpen(!isOpen);
-    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-
     return (
-        <nav className="bg-white-900 text-black shadow-md">
+        <nav className="bg-white text-black shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-4">
-                    {/* Logo */}
-                    <div className="flex items-center">
-                        <a href="/" className="text-2xl font-bold text-black">
-                            HIPSEIS
-                        </a>
-                    </div>
-
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex space-x-6 items-center">
-                        <a
-                            href="#"
-                            className="hover:text-blue-600 transition duration-300"
+                    <div className="Pages hidden md:flex space-x-6 items-center">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="hover:text-blue-600 transition"
                         >
                             Home
-                        </a>
-                        <a
-                            href="#"
-                            className="hover:text-blue-600 transition duration-300"
-                        >
+                        </button>
+                        <button className="hover:text-blue-600 transition">
                             About
-                        </a>
-
-                        {/* Dropdown Menu */}
-                        <div className="relative group">
+                        </button>
+                        <div className="relative">
                             <button
-                                onMouseEnter={toggleDropdown}
-                                onMouseLeave={toggleDropdown}
-                                className="flex items-center hover:text-blue-600  transition duration-300"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                className="flex items-center hover:text-blue-600 transition"
                             >
                                 Services
                                 <ChevronDown
-                                    className={`ml-1 transition-transform duration-300 ${
+                                    className={`ml-1 transition ${
                                         dropdownOpen ? "rotate-180" : ""
                                     }`}
                                     size={18}
                                 />
                             </button>
-
-                            <Transition
-                                show={dropdownOpen}
-                                enter="transition ease-out duration-200"
-                                enterFrom="opacity-0 translate-y-1"
-                                enterTo="opacity-100 translate-y-0"
-                                leave="transition ease-in duration-150"
-                                leaveFrom="opacity-100 translate-y-0"
-                                leaveTo="opacity-0 translate-y-1"
-                            >
+                            {dropdownOpen && (
                                 <div
-                                    onMouseEnter={toggleDropdown}
-                                    onMouseLeave={toggleDropdown}
-                                className="absolute z-10 mt-2 w-48 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden"
+                                    onMouseLeave={() =>
+                                        setDropdownOpen(!dropdownOpen)
+                                    }
+                                    className="absolute z-10 mt-2 w-48 bg-white shadow-lg rounded-lg"
                                 >
-                                    <div className="py-1">
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                                        >
-                                            Web Design
-                                        </a>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                                        >
-                                            SEO
-                                        </a>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition duration-300"
-                                        >
-                                            Marketing
-                                        </a>
-                                    </div>
+                                    <button
+                                        className="block px-4 py-2 w-full text-left hover:bg-gray-100"
+                                        onClick={() =>
+                                            navigate("/services/web-design")
+                                        }
+                                    >
+                                        Web Design
+                                    </button>
+                                    <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
+                                        SEO
+                                    </button>
+                                    <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
+                                        Marketing
+                                    </button>
                                 </div>
-                            </Transition>
+                            )}
                         </div>
-
-                        <a
-                            href="#"
-                            className="hover:text-blue-600  transition duration-300"
-                        >
+                        <button className="hover:text-blue-600 transition">
                             Contact
-                        </a>
+                        </button>
                     </div>
-
-                    {/* Mobile Menu Button */}
                     <div className="md:hidden">
                         <button
-                            onClick={toggleMobileMenu}
-                            className="text-black hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-black transition duration-300"
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="text-black focus:outline-none"
                         >
                             {isOpen ? <X size={28} /> : <Menu size={28} />}
                         </button>
                     </div>
-                </div>
-
-                {/* Mobile Menu */}
-                <Transition
-                    show={isOpen}
-                    enter="transition ease-out duration-100"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                >
-                    <div className="md:hidden">
-                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col  items-center ">
-                            <a
-                                href="#"
-                                className="text-black hover:bg-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-                            >
-                                Home
-                            </a>
-                            <a
-                                href="#"
-                                className="text-black hover:bg-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-                            >
-                                About
-                            </a>
-                            <a
-                                href="#"
-                                className="text-black hover:bg-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-                            >
-                                Services
-                            </a>
-                            <a
-                                href="#"
-                                className="text-black hover:bg-gray-700 hover:text-black block px-3 py-2 rounded-md text-base font-medium transition duration-300"
-                            >
-                                Contact
-                            </a>
-                        </div>
+                    <div className="absolute left-1/2 transform -translate-x-1/2">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="text-2xl font-bold text-black"
+                        >
+                            HIPSEIS
+                        </button>
                     </div>
-                </Transition>
+                    <div className="flex items-center space-x-4">
+                        <button
+                            onClick={() => navigate("/login")}
+                            className="hover:text-blue-600"
+                        >
+                            Login
+                        </button>
+                    </div>
+                </div>
+                {isOpen && (
+                    <div className="md:hidden flex flex-col items-center">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="block px-3 py-2 hover:bg-gray-100"
+                        >
+                            Home
+                        </button>
+                        <button className="block px-3 py-2 hover:bg-gray-100">
+                            About
+                        </button>
+                        <button className="block px-3 py-2 hover:bg-gray-100">
+                            Services
+                        </button>
+                        <button className="block px-3 py-2 hover:bg-gray-100">
+                            Contact
+                        </button>
+                    </div>
+                )}
             </div>
         </nav>
     );
