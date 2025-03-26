@@ -6,6 +6,7 @@ import Footer from "./components/home/Footer";
 import SplashScreen from "./components/ui/SplashScreen";
 import Hero from "./components/home/Hero";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import "./styles/App.css";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
                         <Routes>
                             <Route path="/" element={<Hero />} />
                             <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
                         </Routes>
                         <Footer />
                     </div>

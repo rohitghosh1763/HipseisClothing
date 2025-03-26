@@ -9,23 +9,23 @@ export default function Navbar() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
-        <nav className="bg-[#e9edc9] text-black border-2 border-gray-400 ">
+        <nav className="bg-[#ccd5ae] text-black border-2 border-gray-400 ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-4">
-                    <div className="Pages hidden md:flex space-x-6 items-center cursor-pointer">
+                    <div className="Pages hidden md:flex space-x-6 items-center cursor-pointer font-bold">
                         <button
                             onClick={() => navigate("/")}
-                            className="hover:text-blue-600 transition cursor-pointer"
+                            className=" transition cursor-pointer"
                         >
                             Home
                         </button>
-                        <button className="hover:text-blue-600 transition cursor-pointer">
+                        <button className=" transition cursor-pointer">
                             About
                         </button>
                         <div className="relative">
                             <button
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                                className="flex items-center hover:text-blue-600 transition cursor-pointer"
+                                className="flex items-center  transition cursor-pointer"
                             >
                                 Services
                                 <ChevronDown
@@ -43,23 +43,23 @@ export default function Navbar() {
                                     className="absolute z-10 mt-2 w-48 bg-white shadow-lg rounded-lg"
                                 >
                                     <button
-                                        className="block px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer"
+                                        className="hover:text-[#d4a373]  block px-4 py-2 w-full text-left  cursor-pointer"
                                         onClick={() =>
                                             navigate("/services/web-design")
                                         }
                                     >
                                         Web Design
                                     </button>
-                                    <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
+                                    <button className="hover:text-[#d4a373] block px-4 py-2 w-full text-left  cursor-pointer">
                                         SEO
                                     </button>
-                                    <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 cursor-pointer">
+                                    <button className="hover:text-[#d4a373] block px-4 py-2 w-full text-left cursor-pointer">
                                         Marketing
                                     </button>
                                 </div>
                             )}
                         </div>
-                        <button className="hover:text-blue-600 transition cursor-pointer">
+                        <button className=" transition cursor-pointer">
                             Contact
                         </button>
                     </div>
@@ -74,17 +74,28 @@ export default function Navbar() {
                     <div className="absolute left-1/2 transform -translate-x-1/2">
                         <button
                             onClick={() => navigate("/")}
-                            className="text-2xl font-bold text-black cursor-pointer"
+                            className="text-2xl relative top-1 font-bold text-black cursor-pointer"
                         >
-                            HIPSEIS
+                            <img
+                                src="brandlogo.png"
+                                height={"130px"}
+                                width={"130px"}
+                                alt="HIPSEIS"
+                            />
                         </button>
                     </div>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-4 font-bold">
                         <button
                             onClick={() => navigate("/login")}
-                            className="hover:text-blue-600 cursor-pointer"
+                            className="hover:text-[#183422] cursor-pointer"
                         >
                             Login
+                        </button>
+                        <button
+                            onClick={() => navigate("/register")}
+                            className=" cursor-pointer"
+                        >
+                            Register
                         </button>
                     </div>
                 </div>
