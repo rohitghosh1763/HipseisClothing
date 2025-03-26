@@ -1,7 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -35,13 +34,13 @@ const Hero = () => {
     ];
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h2 className="text-2xl font-bold mb-6 text-center">
+        <section className="mx-auto max-w-7xl px-4 py-12">
+            <h2 className="mb-8 text-center text-3xl font-light tracking-wide text-gray-800">
                 New Arrivals
             </h2>
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={20}
+                spaceBetween={24}
                 slidesPerView={4}
                 navigation
                 pagination={{ clickable: true }}
@@ -52,33 +51,44 @@ const Hero = () => {
                 breakpoints={{
                     0: {
                         slidesPerView: 1,
-                        spaceBetween: 10,
+                        spaceBetween: 16,
                     },
                     640: {
                         slidesPerView: 2,
                         spaceBetween: 20,
                     },
                     1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 24,
+                    },
+                    1280: {
                         slidesPerView: 4,
-                        spaceBetween: 30,
+                        spaceBetween: 24,
                     },
                 }}
-                className="product-carousel"
+                className="!pb-12" // Add padding for pagination
             >
                 {products.map((product) => (
-                    <SwiperSlide key={product.id} className="group">
-                        <div className="relative overflow-hidden">
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full h-[400px] object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                            <div className="mt-4 text-center">
-                                <h3 className="text-lg font-semibold">
+                    <SwiperSlide key={product.id}>
+                        <div className="flex h-full flex-col">
+                            <div className="relative overflow-hidden rounded-md">
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    width={400}
+                                    height={500}
+                                    className="h-[400px] w-full object-cover transition-transform duration-500 hover:scale-105"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div className="mt-4 flex flex-1 flex-col items-center">
+                                <h3 className="text-lg font-medium text-gray-900">
                                     {product.name}
                                 </h3>
-                                <p className="text-gray-600">{product.price}</p>
-                                <button className="mt-2 px-4 py-2 mb-10 bg-black text-white hovertion-colors">
+                                <p className="mt-1 text-gray-600">
+                                    {product.price}
+                                </p>
+                                <button className="mt-4 w-full max-w-[200px] border border-gray-800 px-4 py-2 text-gray-800 transition-colors hover:bg-gray-800 hover:text-white">
                                     Shop Now
                                 </button>
                             </div>
@@ -86,7 +96,7 @@ const Hero = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-        </div>
+        </section>
     );
 };
 
