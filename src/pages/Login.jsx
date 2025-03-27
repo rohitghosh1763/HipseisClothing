@@ -4,7 +4,13 @@ import PhoneInput from "react-phone-number-input";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    CardFooter,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
@@ -23,6 +29,7 @@ const Login = () => {
   const phoneInputRef = useRef(null);
   const otpInputRef = useRef(null);
 
+<<<<<<< HEAD
   // Validate phone number in real-time
   useEffect(() => {
     if (phone && !isValidPhoneNumber(phone)) {
@@ -42,6 +49,39 @@ const Login = () => {
           handleVerifyOTP();
         }
       }
+=======
+    useEffect(() => {
+        if (phone && !isValidPhoneNumber(phone)) {
+            setPhoneError("Please enter a valid phone number");
+        } else {
+            setPhoneError("");
+        }
+    }, [phone]);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter") {
+                if (!showOTPField && phone && !phoneError) {
+                    handleSendOTP();
+                } else if (showOTPField && otp.length === 6) {
+                    handleVerifyOTP();
+                }
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [phone, otp, showOTPField, phoneError]);
+
+    const handleSendOTP = () => {
+        if (!phone || loading || phoneError) return;
+        setLoading(true);
+        setTimeout(() => {
+            setShowOTPField(true);
+            setLoading(false);
+            setTimeout(() => otpInputRef.current?.focus(), 100);
+        }, 1500);
+>>>>>>> 3936a4cb754ad78f4ca71f68593f83b8b42cfe33
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -285,6 +325,7 @@ const Login = () => {
                     Enter the 6-digit code sent to {phone}
                   </motion.p>
 
+<<<<<<< HEAD
                   <motion.div
                     className="relative mb-6"
                     initial={{ opacity: 0, y: 10 }}
@@ -350,6 +391,49 @@ const Login = () => {
       </motion.div>
     </div>
   );
+=======
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.25 }}
+                                    >
+                                        <Button
+                                            className="w-full h-12 text-base bg-[#6b8e23] hover:bg-[#556b2f]"
+                                            onClick={handleVerifyOTP}
+                                            disabled={
+                                                loading || otp.length !== 6
+                                            }
+                                        >
+                                            {loading ? (
+                                                <Loader2 className="h-5 w-5 animate-spin" />
+                                            ) : (
+                                                "Verify OTP"
+                                            )}
+                                        </Button>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </CardContent>
+
+                    {/* Add this CardFooter section */}
+                    <CardFooter className="flex justify-center">
+                        <p className="text-sm text-gray-600">
+                            Don't have an account?{" "}
+                            <Button
+                                variant="link"
+                                className="text-[#6b8e23] p-0 h-auto text-sm"
+                                onClick={() => navigate("/register")}
+                            >
+                                Sign up
+                            </Button>
+                        </p>
+                    </CardFooter>
+                </Card>
+            </motion.div>
+        </div>
+    );
+>>>>>>> 3936a4cb754ad78f4ca71f68593f83b8b42cfe33
 };
 
 export default Login;

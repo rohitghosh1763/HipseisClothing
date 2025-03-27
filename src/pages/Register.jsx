@@ -37,6 +37,7 @@ const Register = () => {
     }
   }, [otpSent]);
 
+<<<<<<< HEAD
   // Simple email validation
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,6 +48,42 @@ const Register = () => {
   const validateName = (name) => {
     return name.trim().length >= 2 ? "" : "Name must be at least 2 characters";
   };
+=======
+    // Enhanced name validation
+    const validateName = (name) => {
+        // Trim whitespace and check length
+        const trimmedName = name.trim();
+        if (trimmedName.length < 2) return "Name must be at least 2 characters";
+        if (trimmedName.length > 50) return "Name cannot exceed 50 characters";
+
+        // Check for leading/trailing spaces
+        if (name !== trimmedName) return "Remove spaces before/after name";
+
+        // Check for invalid characters
+        const validCharsRegex = /^[\p{L}\s'-]+$/u;
+        if (!validCharsRegex.test(trimmedName)) {
+            return "Only letters, spaces, hyphens (-) and apostrophes (') allowed";
+        }
+
+        // Check for consecutive special characters
+        if (/(--|''|\s{2})/.test(trimmedName)) {
+            return "Cannot have consecutive special characters";
+        }
+
+        // Check for invalid start/end with special characters
+        if (/^[-']|[-']$/.test(trimmedName)) {
+            return "Name cannot start or end with special characters";
+        }
+
+        return ""; // Valid name
+    };
+
+    // Email validation
+    const validateEmail = (email) => {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(email.trim()) ? "" : "Please enter a valid email";
+    };
+>>>>>>> 3936a4cb754ad78f4ca71f68593f83b8b42cfe33
 
   // Handle field changes with validation
   const handleChange = (e) => {
@@ -139,12 +176,134 @@ const Register = () => {
 
   const isFormValid = () => {
     return (
+<<<<<<< HEAD
       formData.name &&
       formData.email &&
       formData.phone &&
       !errors.name &&
       !errors.email &&
       !errors.phone
+=======
+        <div className="min-h-screen flex items-center justify-center p-6 bg-[#f8f8f8]">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-full max-w-md"
+            >
+                <Card className="w-full shadow-lg bg-white">
+                    <CardHeader className="text-center py-6">
+                        <CardTitle className="text-3xl font-bold text-[#6b8e23]">
+                            Create Account
+                        </CardTitle>
+                        <p className="text-[#6b8e23]/80 mt-2">
+                            Join us with your details
+                        </p>
+                    </CardHeader>
+
+                    <CardContent className="px-6 pb-6">
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            {/* Name Field */}
+                            <div>
+                                <label className="block text-sm font-medium mb-2 text-[#556b2f]">
+                                    Full Name
+                                </label>
+                                <Input
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="e.g. John Doe or Anne-Marie O'Connor"
+                                    ref={nameInputRef}
+                                    className={
+                                        errors.name
+                                            ? "border-red-500"
+                                            : "border-[#6b8e23]/50"
+                                    }
+                                />
+                                {errors.name && (
+                                    <div className="flex items-center mt-1 text-red-500 text-sm">
+                                        <AlertCircle className="h-4 w-4 mr-1" />
+                                        {errors.name}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Email Field */}
+                            <div>
+                                <label className="block text-sm font-medium mb-2 text-[#556b2f]">
+                                    Email Address
+                                </label>
+                                <Input
+                                    name="email"
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="your.email@example.com"
+                                    className={
+                                        errors.email
+                                            ? "border-red-500"
+                                            : "border-[#6b8e23]/50"
+                                    }
+                                />
+                                {errors.email && (
+                                    <div className="flex items-center mt-1 text-red-500 text-sm">
+                                        <AlertCircle className="h-4 w-4 mr-1" />
+                                        {errors.email}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Phone Field */}
+                            <div>
+                                <label className="block text-sm font-medium mb-2 text-[#556b2f]">
+                                    Phone Number
+                                </label>
+                                <PhoneInput
+                                    international
+                                    defaultCountry="IN"
+                                    value={formData.phone}
+                                    onChange={handlePhoneChange}
+                                    className={`w-full p-3 rounded-md border ${
+                                        errors.phone
+                                            ? "border-red-500"
+                                            : "border-[#6b8e23]/50"
+                                    }`}
+                                />
+                                {errors.phone && (
+                                    <div className="flex items-center mt-1 text-red-500 text-sm">
+                                        <AlertCircle className="h-4 w-4 mr-1" />
+                                        {errors.phone}
+                                    </div>
+                                )}
+                            </div>
+
+                            <Button
+                                type="submit"
+                                className="w-full h-12 text-base bg-[#6b8e23] hover:bg-[#556b2f] mt-4"
+                                disabled={loading || !isFormValid()}
+                            >
+                                {loading ? (
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                ) : (
+                                    "Register"
+                                )}
+                            </Button>
+                        </form>
+
+                        <div className="mt-6 text-center text-sm text-[#6b8e23]/80">
+                            Already have an account?{" "}
+                            <button
+                                onClick={() => navigate("/login")}
+                                className="text-[#6b8e23] hover:underline font-medium"
+                            >
+                                Sign in
+                            </button>
+                        </div>
+                    </CardContent>
+                </Card>
+            </motion.div>
+        </div>
+>>>>>>> 3936a4cb754ad78f4ca71f68593f83b8b42cfe33
     );
   };
 
