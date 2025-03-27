@@ -37,7 +37,7 @@ const Register = () => {
     }
   }, [otpSent]);
 
-<<<<<<< HEAD
+
   // Simple email validation
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,7 +48,7 @@ const Register = () => {
   const validateName = (name) => {
     return name.trim().length >= 2 ? "" : "Name must be at least 2 characters";
   };
-=======
+
     // Enhanced name validation
     const validateName = (name) => {
         // Trim whitespace and check length
@@ -83,7 +83,6 @@ const Register = () => {
         const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return re.test(email.trim()) ? "" : "Please enter a valid email";
     };
->>>>>>> 3936a4cb754ad78f4ca71f68593f83b8b42cfe33
 
   // Handle field changes with validation
   const handleChange = (e) => {
