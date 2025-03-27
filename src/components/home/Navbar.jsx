@@ -27,12 +27,12 @@ export default function Navbar() {
     return (
         <nav className="bg-white border-b sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+                <div className="flex justify-between items-center h-16 relative">
                     {/* Left side - Navigation (hidden on mobile) */}
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden lg:flex items-center space-x-4 xl:space-x-8">
                         <NavigationMenu>
                             <NavigationMenuItem>
-                                <NavigationMenuTrigger className="font-medium text-gray-900 hover:text-primary">
+                                <NavigationMenuTrigger className="font-medium text-gray-900 hover:text-primary text-sm lg:text-base">
                                     SHOP
                                 </NavigationMenuTrigger>
                                 <NavigationMenuContent>
@@ -54,26 +54,26 @@ export default function Navbar() {
 
                         <Button
                             variant="ghost"
-                            className="font-medium text-gray-900 hover:text-primary"
+                            className="font-medium text-gray-900 hover:text-primary text-sm lg:text-base"
                         >
                             ABOUT
                         </Button>
                         <Button
                             variant="ghost"
-                            className="font-medium text-gray-900 hover:text-primary"
+                            className="font-medium text-gray-900 hover:text-primary text-sm lg:text-base"
                         >
                             FAQ
                         </Button>
                         <Button
                             variant="ghost"
-                            className="font-medium text-gray-900 hover:text-primary"
+                            className="font-medium text-gray-900 hover:text-primary text-sm lg:text-base"
                         >
                             CONTACT
                         </Button>
                     </div>
 
-                    {/* Mobile menu button */}
-                    <div className="md:hidden">
+                    {/* Mobile menu button - shows on md screens and below */}
+                    <div className="lg:hidden">
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon">
@@ -127,10 +127,10 @@ export default function Navbar() {
                     </div>
 
                     {/* Center - Brand */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2">
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-auto px-4">
                         <Button
                             variant="ghost"
-                            className="text-2xl font-bold text-gray-900 hover:bg-transparent"
+                            className="text-xl md:text-2xl font-bold text-gray-900 hover:bg-transparent whitespace-nowrap"
                             onClick={() => navigate("/")}
                         >
                             HIPSEIS
@@ -138,7 +138,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Right side - Icons */}
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-2 sm:space-x-4">
                         {/* Search */}
                         <div className="flex items-center">
                             {searchOpen ? (
@@ -150,7 +150,7 @@ export default function Navbar() {
                                         onChange={(e) =>
                                             setSearchQuery(e.target.value)
                                         }
-                                        className="h-8 w-40 sm:w-60"
+                                        className="h-8 w-32 sm:w-40 md:w-60"
                                     />
                                     <Button
                                         variant="ghost"
