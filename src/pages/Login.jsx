@@ -182,7 +182,7 @@ const Login = () => {
                                             {loading ? (
                                                 <Loader2 className="h-5 w-5 animate-spin" />
                                             ) : (
-                                                "Send OTP"
+                                                "CONTINUE"
                                             )}
                                         </Button>
                                     </motion.div>
