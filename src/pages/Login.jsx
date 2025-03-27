@@ -4,7 +4,13 @@ import PhoneInput from "react-phone-number-input";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    CardFooter,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
@@ -20,7 +26,6 @@ const Login = () => {
     const phoneInputRef = useRef(null);
     const otpInputRef = useRef(null);
 
-    // Validate phone number in real-time
     useEffect(() => {
         if (phone && !isValidPhoneNumber(phone)) {
             setPhoneError("Please enter a valid phone number");
@@ -29,7 +34,6 @@ const Login = () => {
         }
     }, [phone]);
 
-    // Handle Enter key press
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === "Enter") {
@@ -286,6 +290,20 @@ const Login = () => {
                             )}
                         </AnimatePresence>
                     </CardContent>
+
+                    {/* Add this CardFooter section */}
+                    <CardFooter className="flex justify-center">
+                        <p className="text-sm text-gray-600">
+                            Don't have an account?{" "}
+                            <Button
+                                variant="link"
+                                className="text-[#6b8e23] p-0 h-auto text-sm"
+                                onClick={() => navigate("/register")}
+                            >
+                                Sign up
+                            </Button>
+                        </p>
+                    </CardFooter>
                 </Card>
             </motion.div>
         </div>

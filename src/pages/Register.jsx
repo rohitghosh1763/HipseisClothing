@@ -29,17 +29,39 @@ const Register = () => {
         nameInputRef.current?.focus();
     }, []);
 
-    // Simple email validation
-    const validateEmail = (email) => {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email) ? "" : "Please enter a valid email";
+    // Enhanced name validation
+    const validateName = (name) => {
+        // Trim whitespace and check length
+        const trimmedName = name.trim();
+        if (trimmedName.length < 2) return "Name must be at least 2 characters";
+        if (trimmedName.length > 50) return "Name cannot exceed 50 characters";
+
+        // Check for leading/trailing spaces
+        if (name !== trimmedName) return "Remove spaces before/after name";
+
+        // Check for invalid characters
+        const validCharsRegex = /^[\p{L}\s'-]+$/u;
+        if (!validCharsRegex.test(trimmedName)) {
+            return "Only letters, spaces, hyphens (-) and apostrophes (') allowed";
+        }
+
+        // Check for consecutive special characters
+        if (/(--|''|\s{2})/.test(trimmedName)) {
+            return "Cannot have consecutive special characters";
+        }
+
+        // Check for invalid start/end with special characters
+        if (/^[-']|[-']$/.test(trimmedName)) {
+            return "Name cannot start or end with special characters";
+        }
+
+        return ""; // Valid name
     };
 
-    // Simple name validation
-    const validateName = (name) => {
-        return name.trim().length >= 2
-            ? ""
-            : "Name must be at least 2 characters";
+    // Email validation
+    const validateEmail = (email) => {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(email.trim()) ? "" : "Please enter a valid email";
     };
 
     // Handle field changes with validation
@@ -129,7 +151,7 @@ const Register = () => {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    placeholder="Enter your full name"
+                                    placeholder="e.g. John Doe or Anne-Marie O'Connor"
                                     ref={nameInputRef}
                                     className={
                                         errors.name
